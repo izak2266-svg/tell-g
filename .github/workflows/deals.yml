@@ -1,0 +1,38 @@
+name: deals
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"   # כל שעתיים
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deals
+  cancel-in-progress: false
+
+jobs:
+  post-deals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run tests
+        run: python -I tests/test_bot.py
+      - name: Post deals
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          AMAZON_TAG: ${{ secrets.AMAZON_TAG }}
+          AFFILIATE_TEMPLATE_ALIEXPRESS_COM: ${{ secrets.AFFILIATE_TEMPLATE_ALIEXPRESS_COM }}
+          AFFILIATE_TEMPLATE_SHEIN_COM: ${{ secrets.AFFILIATE_TEMPLATE_SHEIN_COM }}
+        run: python bot.py
+      - name: Save seen deals
+        run: |
+          git config user.name "deals-bot"
+          git config user.email "deals-bot@users.noreply.github.com"
+          git add seen.json
+          git diff --cached --quiet || (git commit -m "update seen deals" && git push)

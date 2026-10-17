@@ -1,0 +1,15 @@
+{
+  "feeds": [
+    {"name": "Slickdeals", "url": "https://slickdeals.net/newsearch.php?mode=frontpage&searchin=first&rss=1"},
+    {"name": "Reddit r/deals", "url": "https://www.reddit.com/r/deals/new/.rss"},
+    {"name": "Reddit r/frugalmalefashion", "url": "https://www.reddit.com/r/frugalmalefashion/new/.rss"},
+    {"name": "Reddit r/FemaleFashionAdvice deals", "url": "https://www.reddit.com/r/findfashion/new/.rss"}
+  ],
+  "ships_to_israel_domains": [
+    "aliexpress.com", "shein.com", "asos.com", "zara.com", "hm.com",
+    "amazon.com", "iherb.com", "farfetch.com", "mango.com", "nike.com",
+    "adidas.com", "next.co.uk", "boohoo.com", "temu.com", "ssense.com"
+  ],
+  "min_discount_percent": 50,
+  "max_posts_per_run": 5
+}
